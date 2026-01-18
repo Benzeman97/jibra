@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acentura | Leading Digital Transformation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: #fefefe;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: rgb(15, 14, 14);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #4a90e2;
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            margin-top: 70px;
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+        }
+
+        .slide h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide h5 {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #357abd;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #1a1a2e;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 0;
+            background: #1a1a2e;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: #4a90e2;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item h5 {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .stat-item p {
+            margin-top: 1rem;
+            color: #ccc;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #48484e;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            color: #4a90e2;
+            margin-bottom: 1.5rem;
+            stroke-width: 1.5;
+            flex-shrink: 0;
+        }
+
+        .service-card h5 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Industries Section */
+        .industries-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .industry-card {
+            padding: 2.5rem 2rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .industry-icon {
+            width: 48px;
+            height: 48px;
+            color: #4a90e2;
+            margin-bottom: 1.5rem;
+            stroke-width: 1.5;
+            flex-shrink: 0;
+        }
+
+        .industry-card h5 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1a1a2e;
+        }
+
+        .industry-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            padding: 4rem 0;
+            background: rgb(232, 229, 229);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .partner-logo {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 80px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #4a90e2;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .slide h1 {
+                font-size: 2rem;
+            }
+
+            .about-content,
+            .stats-grid,
+            .services-grid,
+            .industries-grid,
+            .partners-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-icon,
+            .industry-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                         <img src="https://i.ibb.co/PzwX7cH9/acentura-10.jpg" 
+                         alt="Acentura"/>     
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#industries">Industries</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Slider -->
+    <div class="hero-slider" id="home">
+        <div class="slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="slide-content">
+                <h1>Enterprise Software Solutions</h1>
+                <h5>Providing end-to-end design, development, and integration of enterprise systems to improve operational efficiency, reliability, and organizational performance.</h5>
+                <a href="#services" class="btn">Explore Solutions</a>
+            </div>
+        </div>
+        <div class="slide" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="slide-content">
+                <h1>AI-Driven Digital Transformation Services</h1>
+                <h5>Applying artificial intelligence to enhance process automation, improve analytical capabilities, and enable informed decision-making across business operations.</h5>
+                <a href="#services" class="btn">Discover More</a>
+            </div>
+        </div>
+        <div class="slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="slide-content">
+                <h1>Digital Transformation Solutions</h1>
+                <h5>Delivering technology-enabled transformation through strategic planning, modern platforms, and scalable digital solutions that support long-term business objectives.</h5>
+                <a href="#services" class="btn">Learn More</a>
+            </div>
+        </div>
+        <div class="slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="slide-content">
+                <h1>Cloud Migration & Modernization</h1>
+                <h5>Supporting secure and structured cloud adoption by migrating, modernizing, and optimizing infrastructure for scalability, resilience, and cost efficiency.</h5>
+                <a href="#services" class="btn">Get Started</a>
+            </div>
+        </div>
+        <div class="slider-dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Empowering Digital Excellence</h2>
+                    <p>We are a leader in delivering world-class digital solutions, transforming businesses across industries. Our innovative approach integrates cutting-edge technology to foster efficiency and growth.</p>
+                    <p>Our team of experts is dedicated to enabling organizations to embrace change and navigate the complexities of the digital landscape.</p>
+                    <a href="#services" class="btn">Explore Solutions</a>
+                </div>
+                <div class="about-image">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 400px; border-radius: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Services at a Glance</h2>
+                <p>Comprehensive solutions designed to support business transformation and enhance operational efficiency.</p>
+            </div>
+            <div class="services-grid">
+                <a href="javascript:void(0)" class="service-card">
+                    <i data-lucide="monitor" class="service-icon"></i>
+                    <h5>ERP Integrations</h5>
+                    <p>Seamlessly integrate your enterprise resource planning systems with other applications for enhanced data flow and efficiency.</p>
+                </a>
+                <a href="javascript:void(0)" class="service-card">
+                    <i data-lucide="cpu" class="service-icon"></i>
+                    <h5>Advanced Planning & Scheduling</h5>
+                    <p>Leverage advanced algorithms to optimize your production schedules, reducing downtime and maximizing resource utilization.</p>
+                </a>
+                <a href="javascript:void(0)" class="service-card">
+                    <i data-lucide="sparkles" class="service-icon"></i>
+                    <h5>Digital Transformation Solutions</h5>
+                    <p>Empower your organization with digital strategies that enhance operational efficiency.</p>
+                </a>
+                <a href="javascript:void(0)" class="service-card">
+                    <i data-lucide="cloud" class="service-icon"></i>
+                    <h5>Cloud Solutions</h5>
+                    <p>Adopt cloud technologies to enhance scalability, reduce costs, and improve accessibility.</p>
+                </a>
+                <a href="javascript:void(0)" class="service-card">
+                    <i data-lucide="code-2" class="service-icon"></i>
+                    <h5>Software Engineering</h5>
+                    <p>Design and develop customized solutions that align with your business objectives and drive measurable results.</p>
+                </a>
+                <a href="javascript:void(0)" class="service-card">
+                    <i data-lucide="bar-chart-3" class="service-icon"></i>
+                    <h5>Business Intelligence & Analytics</h5>
+                    <p>Transform data into actionable insights with advanced analytics and business intelligence tools.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+        <!-- Partners Section -->
+        <section class="partners-section" id="partners">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Key Partners</h2>
+                    <p>Collaborating with industry leaders to deliver exceptional solutions.</p>
+                </div>
+                <div class="partners-grid">
+                    <div class="partner-logo">
+                        <img src="https://i.ibb.co/5gRhJrGt/sap.png" alt="SAP">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://i.ibb.co/BH7gSvCt/relex.webp" alt="RELEX Solutions">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://i.ibb.co/qLhXJFVH/lynqmes-logo.jpg" alt="LYNQ">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="https://i.ibb.co/rGWwYD2t/centric-software-logo.png" alt="Centric Software">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <!-- Industries Section -->
+    <section class="industries-section" id="industries">
+        <div class="container">
+            <div class="section-header">
+                <h2>Industries We Serve</h2>
+                <p>Acentura specializes in delivering solutions across various industries.</p>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-card">
+                    <i data-lucide="factory" class="industry-icon"></i>
+                    <h5>Manufacturing</h5>
+                    <p>Enhancing production efficiency and supply chain management through innovative solutions.</p>
+                </div>
+                <div class="industry-card">
+                    <i data-lucide="radio" class="industry-icon"></i>
+                    <h5>Telecom</h5>
+                    <p>Optimizing operations and billing processes to improve customer satisfaction.</p>
+                </div>
+                <div class="industry-card">
+                    <i data-lucide="shield-check" class="industry-icon"></i>
+                    <h5>Insurance & Finance</h5>
+                    <p>Streamlining claims processing and financial management for better service delivery.</p>
+                </div>
+                <div class="industry-card">
+                    <i data-lucide="shopping-bag" class="industry-icon"></i>
+                    <h5>Lifestyle</h5>
+                    <p>Creating digital experiences that enhance customer engagement and loyalty.</p>
+                </div>
+                <div class="industry-card">
+                    <i data-lucide="graduation-cap" class="industry-icon"></i>
+                    <h5>Learning Management</h5>
+                    <p>Delivering robust e-learning solutions to foster knowledge sharing and skill development.</p>
+                </div>
+                <div class="industry-card">
+                    <i data-lucide="rocket" class="industry-icon"></i>
+                    <h5>Tech & ISV</h5>
+                    <p>Supporting emerging businesses with scalable solutions and strategic guidance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Who We Are</h4>
+                    <p>Acentura delivers transformational technology services enabling our clients to outperform the competition.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#industries">Industries</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#partners">Partners</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Software Engineering Services</a></li>
+                        <li><a href="#">Cloud Services</a></li>
+                        <li><a href="#">Digital Transformation</a></li>
+                        <li><a href="#">ERP Solutions</a></li>
+                        <li><a href="#">Managed Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@acentura.biz</p>
+                    <p>Sri Lanka: +94 11 224 4586</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Acentura. All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Auto-advance slides
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+    </script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
