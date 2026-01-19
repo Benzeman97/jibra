@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zhtT7MYF/favicon.jpg"/>
     <link rel="icon" type="image/png" sizes="16x16" href="https://i.ibb.co/b5PxLjkr/favicon-16x16.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/yc5T8NJ0/favicon-32x32.png"/> 
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/yc5T8NJ0/favicon-32x32.png"/>    
     <style>
         * {
             margin: 0;
@@ -17,15 +17,15 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                         'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #333;
         }
 
-        /* Header */
+        /* HEADER */
         header {
             background: #fefefe;
-            color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
@@ -53,6 +53,7 @@
             width: auto;
         }
 
+        /* NAVIGATION */
         nav ul {
             list-style: none;
             display: flex;
@@ -60,13 +61,59 @@
         }
 
         nav a {
-            color: rgb(15, 14, 14);
+            color: #0f0e0e;
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
         nav a:hover {
             color: #4a90e2;
+        }
+
+        /* HAMBURGER BUTTON */
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #000;
+        }
+
+        /* MOBILE STYLES */
+        @media (max-width: 768px) {
+
+            .header-top {
+                padding: 0 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                display: none;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                text-align: center;
+            }
+
+            nav ul li {
+                padding: 12px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            nav.active {
+                display: block;
+            }
         }
 
         /* Hero Slider */
@@ -436,20 +483,25 @@
     <!-- Header -->
     <header>
         <div class="header-top">
+    
             <div class="logo">
-                         <img src="https://i.ibb.co/PzwX7cH9/acentura-10.jpg" 
-                         alt="Acentura"/>     
+                <img src="https://i.ibb.co/PzwX7cH9/acentura-10.jpg" alt="Acentura">
             </div>
+    
+            <!-- Hamburger -->
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#industries">Industries</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#partners">Partners</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                    <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                    <li><a href="#industries" onclick="toggleMenu()">Industries</a></li>
+                    <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+                    <li><a href="#partners" onclick="toggleMenu()">Partners</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
                 </ul>
             </nav>
+    
         </div>
     </header>
 
@@ -680,6 +732,11 @@
         setInterval(() => {
             showSlide(currentSlide + 1);
         }, 5000);
+
+        function toggleMenu() {
+        document.querySelector("nav").classList.toggle("active");
+    }
+
     </script>
     <script>
         lucide.createIcons();
